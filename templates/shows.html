@@ -1,0 +1,79 @@
+<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-jade">
+  <a class="navbar-brand" ui-sref="home">
+    Animated Slideshow Tool
+  </a>
+</nav>
+<div ng-hide="hidePage" class="h-100 container-fluid">
+  <div class="row h-100">
+    <nav class="col-md-2 h-100 d-md-block bg-light sidebar pb-4">
+      <div class="sidebar-sticky">
+        <div class="mt-3">
+          <button class="btn btn-info btn-block" ng-click="goTo('home')"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Back to Editor</button>
+        </div>
+      </div>
+    </nav>
+    <main role="main" class="col-md-10 h-100 ml-sm-auto px-2 py-2">
+      <div class="card h-100 p-4">
+        <h4 class="sidebar-heading">
+          List of Saved Slideshows
+        </h4>
+        <div class="mt-2">
+          <h5 ng-show="!shows.length">There are no shows saved currently for {{cl}}</h5>
+          <h5 ng-show="shows.length" class="mb-3">Listing shows for client: {{cl}}</h5>
+          <div ng-show="shows.length" class="show-ctn">
+            <div class="card show-card mr-2" ng-repeat="s in shows track by $index">
+              <div class="card-body">
+                <b>Name :</b> {{s.name}}<br/>
+                <b>Author :</b> {{s.author}}<br/>
+                <b>Number of Slides :</b> {{s.slides.length}}<br/>
+                <b>Created On :</b> {{s.created | noTime}}<br/>
+                <div class="pull-right mt-2">
+                  <button class="btn btn-jade btn-sm" ng-click="playSlideShow(s)"><i class="fa fa-play"></i>&nbsp;&nbsp;Play</button>
+                  <button class="btn btn-danger btn-sm ml-1" ng-click="deleteSlideShow(s)"><i class="fa fa-trash"></i>&nbsp;&nbsp;Delete</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <pre>{{shows | json}}</pre> -->
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<div class="slideshow-ol h-100 w-100">
+  <div class="slideshow-ctn h-100 w-100">
+  </div>
+  <div class="slideshow-end">
+    <button class="btn btn-lg btn-jade" ng-click="playSlideShow()"><i class="fa fa-repeat"></i>&nbsp;&nbsp;Replay</button>
+  </div>
+  <div class="close-btn" ng-click="stopSlideShow()">
+    <button class="btn btn-jade"><i class="fa fa-times"></i></button>
+  </div>
+</div>
+
+<div class="modal fade" id="messModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Message</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">        
+        <p ng-bind-html="message | trustedHTML"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-jade" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div ng-show="showLoader" class="loader-ol h-100 w-100">
+  <div class="loader-in">
+    <div class="loader"></div><br/>
+    <h3>Please wait</h3>
+  </div>
+</div>
